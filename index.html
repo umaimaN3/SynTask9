@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherPro | Real-Time Global Weather Forecast</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span>WeatherPro</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Cities</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Forecast</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Global Weather Intelligence Platform</h1>
+            <p>Get accurate real-time weather updates, forecasts, and climate insights for any location worldwide</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="city-input" placeholder="Enter city, state or country...">
+                </div>
+                <button id="search-btn" class="search-btn">
+                    <i class="fas fa-search"></i> Search Weather
+                </button>
+            </div>
+            <div class="quick-locations">
+                <button class="quick-btn" data-city="London">London</button>
+                <button class="quick-btn" data-city="New York">New York</button>
+                <button class="quick-btn" data-city="Tokyo">Tokyo</button>
+                <button class="quick-btn" data-city="Delhi">Delhi</button>
+                <button class="quick-btn" data-city="Paris">Paris</button>
+                <button class="quick-btn" data-city="Sydney">Sydney</button>
+                <button class="quick-btn" data-city="Dubai">Dubai</button>
+                <button class="quick-btn" data-city="Mumbai">Mumbai</button>
+            </div>
+            <div class="unit-toggle">
+                <button class="unit-btn active" data-unit="metric">°C</button>
+                <button class="unit-btn" data-unit="imperial">°F</button>
+            </div>
+        </section>
+
+        <!-- Error Message -->
+        <div class="error-message" id="error-message">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 id="error-title">City Not Found</h3>
+            <p id="error-details">Please try again with a valid city name</p>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <h3>Fetching Weather Data...</h3>
+            <p>Analyzing atmospheric conditions for your location</p>
+        </div>
+
+        <!-- Weather Display -->
+        <div class="weather-display" id="weather-display">
+            <!-- Weather Alert (Conditional) -->
+            <div class="weather-alert" id="weather-alert" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <h4>Weather Alert</h4>
+                    <p id="alert-text">Severe weather conditions expected in your area</p>
+                </div>
+            </div>
+
+            <!-- Weather Header -->
+            <div class="weather-header">
+                <div class="location-info">
+                    <h2 id="city-name">New York, US</h2>
+                    <p id="weather-description">Clear Sky</p>
+                </div>
+                <div class="date-time">
+                    <div class="date" id="current-date">Monday, February 9, 2026</div>
+                    <div class="time" id="current-time">11:45 AM Local Time</div>
+                </div>
+            </div>
+
+            <!-- Main Weather Info -->
+            <div class="weather-main">
+                <div class="weather-icon-temp">
+                    <div class="weather-icon" id="weather-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="temperature">
+                        <span id="temperature">22</span><span class="temp-unit">°C</span>
+                    </div>
+                    <div class="weather-description" id="weather-main">Clear</div>
+                    <div class="feels-like">Feels like <span id="feels-like">24°C</span></div>
+                </div>
+
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-tint"></i>
+                            <span>Humidity</span>
+                        </div>
+                        <div class="detail-value" id="humidity">65%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-wind"></i>
+                            <span>Wind Speed</span>
+                        </div>
+                        <div class="detail-value" id="wind-speed">5.5 m/s</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-compress-alt"></i>
+                            <span>Pressure</span>
+                        </div>
+                        <div class="detail-value" id="pressure">1013 hPa</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-eye"></i>
+                            <span>Visibility</span>
+                        </div>
+                        <div class="detail-value" id="visibility">10 km</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-cloud"></i>
+                            <span>Cloud Cover</span>
+                        </div>
+                        <div class="detail-value" id="clouds">10%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-sun"></i>
+                            <span>UV Index</span>
+                        </div>
+                        <div class="detail-value" id="uv-index">5 Moderate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather Stats -->
+            <div class="weather-stats">
+                <div class="stat-card">
+                    <i class="fas fa-thermometer-half"></i>
+                    <div class="stat-value" id="temp-min">18°</div>
+                    <div class="stat-label">Min Temperature</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-thermometer-full"></i>
+                    <div class="stat-value" id="temp-max">26°</div>
+                    <div class="stat-label">Max Temperature</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-sunrise"></i>
+                    <div class="stat-value" id="sunrise">6:45 AM</div>
+                    <div class="stat-label">Sunrise</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-sunset"></i>
+                    <div class="stat-value" id="sunset">5:30 PM</div>
+                    <div class="stat-label">Sunset</div>
+                </div>
+            </div>
+
+            <!-- Air Quality -->
+            <div class="air-quality" id="air-quality" style="display: none;">
+                <h4><i class="fas fa-wind"></i> Air Quality Index</h4>
+                <div class="aqi-level" id="aqi-level">Good</div>
+                <p id="aqi-desc">Air quality is satisfactory with little risk to health</p>
+            </div>
+        </div>
+
+        <!-- Forecast Section -->
+        <section class="forecast-section">
+            <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h2>
+            <div class="forecast-cards" id="forecast-cards">
+                <!-- Forecast cards will be inserted here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>WeatherPro</h3>
+                    <p>Providing accurate weather forecasts and climate insights since 2024. Our platform uses advanced meteorological data and machine learning algorithms.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Weather Maps</a></li>
+                        <li><a href="#">Radar</a></li>
+                        <li><a href="#">Satellite</a></li>
+                        <li><a href="#">Climate Data</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Weather Alerts</a></li>
+                        <li><a href="#">Historical Data</a></li>
+                        <li><a href="#">Research Tools</a></li>
+                        <li><a href="#">Educational Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Weather Street, Metropolis</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@weatherpro.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 WeatherPro. All rights reserved. | <a href="#" style="color: #aaa;">Privacy Policy</a> | <a href="#" style="color: #aaa;">Terms of Service</a></p>
+                <p>Weather data powered by OpenWeatherMap API</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
